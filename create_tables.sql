@@ -27,9 +27,7 @@ create table table_users
 (
     id                    integer not null
     primary key autoincrement,
-    lastName              text    not null,
     name                  text    not null,
-    middleName            text    not null,
     position              text    not null,
     email                 text    not null,
     password              text    not null,
@@ -53,122 +51,44 @@ create type_request
     reason text not null
 );
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//таблица организации
-create table table_organization
+//тип обращения
+create medicinal_product
 (
     id                   integer not null
     primary key autoincrement,
-    name                 text    not null,
-    inn                  text    not null,
-    address              text    not null,
-    telephone            text    not null,
-    director             text    not null,
-    license_type         text,
-    license_number       text,
-    license_date         date,
-    license_organization text,
-    type_organization    text    not null,
-    active               integer default 1
+    name_drug text not null
 );
-//типы организаций
-0 Контролирующий орган
-1 Федеральное учреждение
-2 Региональное учреждение
-3 Казенное предприятие
-4 Общество с ограниченной ответственностью
-5 Открытое акционерное общество
-6 Закрытое акционерное общество
-7 Индивидуальный предприниматель
 
-//типы лицензий
-1-Медицинская
-2-Фармацевтическая
-3-Медицинская и фармацевтическая
-
-//поиск организации по номеру id
-SELECT  name, inn, address, telephone, director, type_organization, license_type, license_number, license_date, license_organization FROM table_organization WHERE id = 1
-
-
-
-
-//таблица пользователя, связана с организацией через id
-create table table_person
+create appeal_citizens_medicinal_product
 (
-    id                    integer not null
+    id                   integer not null
     primary key autoincrement,
-    lastName              text    not null,
-    name                  text    not null,
-    middleName            text    not null,
-    position              text    not null,
-    email                 text    not null,
-    password              text    not null,
-    type_user             integer not null,
-    active                integer default 1,
-    table_organization_id integer not null
-    references table_organization
+    appeal_citizens_id integer not null,
+    medicinal_product_id integer not null
 );
-//добавление пользователя
-INSERT INTO table_person (lastName, name, middleName, position, email, password) VALUES ('123', '123', '123', '123', '123', '123')
 
-//проверка при входе в личный кабинет
-SELECT email FROM table_person WHERE email='123' AND password='123' AND active=1
-// заполнение информации о пользоватете
-SELECT lastName, name, middleName, position, email, type_user FROM table_person WHERE id = 1
-
-//конкретный пользователь
-SELECT id, lastName, name, middleName, position, email, password
-FROM table_person
-WHERE email='123' AND password='123' AND active='1'
-
-
-
-
-
-
-
-//рецепт
-create table table_recipe
-(
-    num_recipe    integer not null
-        primary key autoincrement,
-    hospital      integer not null,
-    series        text    not null,
-    date_recipe   date    not null,
-    age           int     not null,
-    pacient       text    not null,
-    date_birthday date    not null,
-    address       text    not null,
-    user_hospital text    not null,
-    drug_MNN      text    not null,
-    apteka        text    not null,
-    drug_TN       int     not null,
-    user_apteka   text    not null,
-    date_release  date    not null,
-    result        int default 0 not null
+appeal_citizens
+(    
+    id integer not null primary key autoincrement,
+    applicant text,
+    category_citizens_id integer references category_citizens,
+    year_birth text,
+    telephone text,
+    table_region_id integer references table_region,
+    locality_id integer references locality
+    street text,
+    house text,
+    flat text,
+    trustee text,
+    medical_organization_id integer references medical_organization,
+    type_request_id integer not null references type_request,
+    description text,
+    date_request date,
+    transmitted text,
+    result text,
+    table_users_id integer not null references table_users,
+    sign_closure integer default 0,
+    anonymous_appeal integer default 0,
+    closing_date date,
+    comments text
 );
