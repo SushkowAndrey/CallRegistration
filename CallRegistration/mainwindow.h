@@ -4,6 +4,8 @@
 #include <QMainWindow>
 
 #include "log.h"
+#include "account.h"
+#include "dbconnect.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -16,6 +18,21 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+private:
+    //указатель на форму пользователя, которая будет открываться из данного окна
+    Account *account;
+private slots:
+    //закрыть текущее окно
+    void on_pushButton_close_clicked();
+    //очистка введенных данных логина и пароля
+    void on_pushButton_clear_clicked();
+    //восстановление пользователя или пароля
+    void on_pushButton_recover_clicked();
+    //переход на поле с логином и паролем назад
+    void on_pushButton_back_clicked();
+    //авторизация пользователя-ввод логина и пароля и вход в окно пользователя
+    void on_pushButton_authorization_clicked();
 
 private:
     Ui::MainWindow *ui;
