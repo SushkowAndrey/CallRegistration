@@ -15,7 +15,19 @@ Account::~Account()
     delete ui;
 }
 
+//заполнение аккаунта
 void Account::AccountValue()
 {
+    DBConnect dbConnect;
+
+
     ui->label->setText(QString::number(idAccount));
+}
+
+
+
+//выход из формы
+void Account::on_pushButton_exit_clicked()
+{
+    this->close();
 }

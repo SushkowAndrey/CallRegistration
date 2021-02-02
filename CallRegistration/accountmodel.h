@@ -12,12 +12,15 @@ public:
     QString position;
     QString email;
     QString password;
-    int typeUser;
+    QString departament;
+    QString typeUser;
     bool active;
 
     AccountModel();
     //конструктор для передачи информации о ID пользователя в окно работы с обращениями
     AccountModel(int id);
+    //конструктор для пользователя
+    AccountModel(QString name, QString position, QString email, QString password, QString typeUser, QString departament);
 };
 
 #endif // ACCOUNTMODEL_H

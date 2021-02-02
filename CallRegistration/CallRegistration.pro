@@ -11,6 +11,7 @@ CONFIG += c++11
 SOURCES += \
     account.cpp \
     accountmodel.cpp \
+    checkpasswordadmin.cpp \
     dbconnect.cpp \
     log.cpp \
     main.cpp \
@@ -19,12 +20,14 @@ SOURCES += \
 HEADERS += \
     account.h \
     accountmodel.h \
+    checkpasswordadmin.h \
     dbconnect.h \
     log.h \
     mainwindow.h
 
 FORMS += \
     account.ui \
+    checkpasswordadmin.ui \
     mainwindow.ui
 
 # Default rules for deployment.

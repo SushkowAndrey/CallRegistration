@@ -15,6 +15,14 @@ public:
     DBConnect();
     //проверка наличия пользователя в ЛК в БД
     AccountModel SelectAccountModel(QString login, QString password);
+    //информация о пользователе по ID
+    AccountModel SelectAccountModel(int id);
+    //регистрация пользователя
+    bool RegistrationUser (AccountModel accountModel);
+    //проверка пароля администратора
+    bool CheckPasswordAdmin (QString password);
+    //проверка наличия пользователя в базе
+    bool CheckUser (QString name, QString position, QString email, QString departament);
 
 private:
     //путь БД и экземпляр БД
