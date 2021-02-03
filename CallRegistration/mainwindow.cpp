@@ -49,7 +49,7 @@ void MainWindow::on_pushButton_recover_clicked()
 {
     //переход на другое окно для восстановления активности пользователя
     ui->stackedWidget->setCurrentIndex(1);
-    Log::SaveLog("Восстановление пользователя или пароля", this);    //запись лога
+    Log::SaveLog("Работа с пользователем", this);    //запись лога
 }
 
 void MainWindow::on_pushButton_back_clicked()

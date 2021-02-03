@@ -37,9 +37,9 @@ AccountModel DBConnect::SelectAccountModel(int id)
     QSqlQuery query;
     query.exec("SELECT name, position, email, password, type_user, departament FROM table_users WHERE id="+QString::number(id)+" AND active=1");
     if (query.next()) {
-        name = query.value(0).toString();;
+        name = query.value(0).toString();
 
-        return accountModel;
+        //return accountModel;
     } else {
         AccountModel accountModel(0);
         return accountModel;
@@ -64,7 +64,8 @@ bool DBConnect::RegistrationUser (AccountModel accountModel)
 bool DBConnect::CheckPasswordAdmin (QString password)
 {
     QSqlQuery query;
-    if (query.exec("SELECT id FROM table_users WHERE password='"+password+"' AND active=1 AND type_user='1'"))
+    query.exec("SELECT id FROM table_users WHERE password='"+password+"' AND active=1 AND type_user='1'");
+    if (query.first())
     {
         return true;
     } else {
@@ -77,7 +78,8 @@ bool DBConnect::CheckPasswordAdmin (QString password)
 bool DBConnect::CheckUser(QString name, QString position, QString email, QString departament)
 {
     QSqlQuery query;
-    if (query.exec("SELECT id FROM table_users WHERE name='"+name+"' AND position='"+position+"' AND email='"+email+"' AND departament='"+departament+"' AND active=1"))
+    query.exec("SELECT id FROM table_users WHERE name='"+name+"' AND position='"+position+"' AND email='"+email+"' AND departament='"+departament+"' AND active=1");
+    if (query.first())
     {
         return true;
     } else {

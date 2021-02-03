@@ -31,8 +31,8 @@ void CheckPasswordAdmin::on_pushButton_check_clicked()
     if (dbConnect.CheckPasswordAdmin(password)) {
     if (dbConnect.RegistrationUser(accountModel))
     {
-        QMessageBox::information(this, "Результат","Успешная регистрация пользователя ");
-        Log::SaveLog("Пользователь с логином - зарегистрирован", this);    //запись лога
+        QMessageBox::information(this, "Результат","Успешная регистрация пользователя", accountModel.email);
+        Log::SaveLog("Пользователь с email", accountModel.email, "- зарегистрирован", this);    //запись лога
     }
     else {
         QMessageBox::critical(this, "Результат","Пользователь не зарегистрирован");
