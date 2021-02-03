@@ -33,17 +33,23 @@ private slots:
     //восстановление пользователя или пароля
     void on_pushButton_recover_clicked();
     //переход на поле с логином и паролем назад
-    void on_pushButton_back_clicked();
+    void on_pushButton_back_0_clicked();
     //авторизация пользователя-ввод логина и пароля и вход в окно пользователя
     void on_pushButton_authorization_clicked();
     //регистрация нового пользователя
     void on_pushButton_registration_user_clicked();
-
-    void on_pushButton_back_2_clicked();
+    //назад в выбор операций с пользоваетелем
+    void on_pushButton_back_1_clicked();
     //регистрация пользователя после ввода информации
     void on_pushButton_registration_clicked();
     //очистить информацию о регистрируемом пользователе
     void on_pushButton_clear_2_clicked();
+    //заблокировать пользователя
+    void on_pushButton_block_clicked();
+    //назад в выбор операций с пользоваетелем
+    void on_pushButton_back_2_clicked();
+    //подтвердить блокировку пользователя
+    void on_pushButton_block_it_clicked();
 
 private:
     Ui::MainWindow *ui;

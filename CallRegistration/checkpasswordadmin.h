@@ -16,7 +16,8 @@ class CheckPasswordAdmin : public QDialog
     Q_OBJECT
 
 public:
-    explicit CheckPasswordAdmin(QWidget *parent = nullptr, AccountModel accountModel=0);
+    explicit CheckPasswordAdmin(QWidget *parent = nullptr, AccountModel accountModel=0);//при регистрации пользователя
+    explicit CheckPasswordAdmin(QWidget *parent = nullptr);//при блокировке пользователя
     ~CheckPasswordAdmin();
 
 private slots:

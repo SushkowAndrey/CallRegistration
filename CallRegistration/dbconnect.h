@@ -22,7 +22,7 @@ public:
     //проверка пароля администратора
     bool CheckPasswordAdmin (QString password);
     //проверка наличия пользователя в базе
-    bool CheckUser (QString name, QString position, QString email, QString departament);
+    bool CheckUser (QString email);
 
 private:
     //путь БД и экземпляр БД

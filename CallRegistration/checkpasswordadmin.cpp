@@ -9,6 +9,13 @@ CheckPasswordAdmin::CheckPasswordAdmin(QWidget *parent, AccountModel accountMode
     this->accountModel=accountModel;
 }
 
+CheckPasswordAdmin::CheckPasswordAdmin(QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::CheckPasswordAdmin)
+{
+    ui->setupUi(this);
+}
+
 CheckPasswordAdmin::~CheckPasswordAdmin()
 {
     delete ui;
@@ -33,12 +40,13 @@ void CheckPasswordAdmin::on_pushButton_check_clicked()
     {
         QMessageBox::information(this, "Результат","Успешная регистрация пользователя", accountModel.email);
         Log::SaveLog("Пользователь с email", accountModel.email, "- зарегистрирован", this);    //запись лога
+        this->close();
     }
     else {
         QMessageBox::critical(this, "Результат","Пользователь не зарегистрирован");
     }
     } else {
-        QMessageBox::critical(this, "Результат","неверный пароль администратора");
+        QMessageBox::critical(this, "Результат","Неверный пароль администратора");
     }
     }
 }

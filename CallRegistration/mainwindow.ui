@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="page">
      <layout class="QGridLayout" name="gridLayout_4">
@@ -120,7 +120,7 @@
      </layout>
     </widget>
     <widget class="QWidget" name="page_2">
-     <widget class="QPushButton" name="pushButton_back">
+     <widget class="QPushButton" name="pushButton_back_0">
       <property name="geometry">
        <rect>
         <x>590</x>
@@ -190,7 +190,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_4">
+        <widget class="QPushButton" name="pushButton_block">
          <property name="text">
           <string>Заблокировать пользователя</string>
          </property>
@@ -287,7 +287,7 @@
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
-        <widget class="QPushButton" name="pushButton_back_2">
+        <widget class="QPushButton" name="pushButton_back_1">
          <property name="text">
           <string>Назад</string>
          </property>
@@ -439,6 +439,61 @@
       <property name="text">
        <string>Блокировка пользователя</string>
       </property>
+     </widget>
+     <widget class="QWidget" name="">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>80</y>
+        <width>611</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_8">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_19">
+         <property name="text">
+          <string>Введите Email блокируемого пользователя</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="email_2"/>
+       </item>
+       <item row="1" column="0" colspan="2">
+        <widget class="QLabel" name="warning_2">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="">
+      <property name="geometry">
+       <rect>
+        <x>370</x>
+        <y>190</y>
+        <width>271</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_5">
+       <item>
+        <widget class="QPushButton" name="pushButton_block_it">
+         <property name="text">
+          <string>Заблокировать пользователя</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_back_2">
+         <property name="text">
+          <string>Назад</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </widget>
     <widget class="QWidget" name="page_5">

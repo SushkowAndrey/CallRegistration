@@ -52,14 +52,14 @@ void MainWindow::on_pushButton_recover_clicked()
     Log::SaveLog("Работа с пользователем", this);    //запись лога
 }
 
-void MainWindow::on_pushButton_back_clicked()
+void MainWindow::on_pushButton_back_0_clicked()
 {
     //переход на поле с логином и паролем назад
     ui->stackedWidget->setCurrentIndex(0);
 }
 
 //выход из поля регистрации
-void MainWindow::on_pushButton_back_2_clicked()
+void MainWindow::on_pushButton_back_1_clicked()
 {
     //переход на поле с вариантами работы с пользователем
     ui->stackedWidget->setCurrentIndex(1);
@@ -91,15 +91,16 @@ void MainWindow::on_pushButton_authorization_clicked()
     }
 }
 
+//переход на поле с регистрацией
 void MainWindow::on_pushButton_registration_user_clicked()
 {
-    //переход на поле с регистрацией
     ui->stackedWidget->setCurrentIndex(2);
 }
 
 //регистрация пользователя
 void MainWindow::on_pushButton_registration_clicked()
 {
+    Log::SaveLog("Регистрация пользователя", this);    //запись лога
     //заполнение параметров
     QString name=ui->name->text();
     QString position=ui->position->text();
@@ -126,25 +127,17 @@ void MainWindow::on_pushButton_registration_clicked()
     }
     bool flagUserRepeate=true;
     DBConnect dbConnect;
-    if (dbConnect.CheckUser(name, position, email, departament))
+    if (dbConnect.CheckUser(email))
     {
-        ui->warning->setText("Такой пользователь уже зарегистрирован");
+        ui->warning->setText("Пользователь с таким Email уже зарегистрирован");
         flagUserRepeate=false;
     }
     AccountModel accountModel(name,position, email, password, typeUser, departament);
-    //DBConnect dbConnect;
     if (flagData&&flagPasswordRepeate&&flagUserRepeate) {
-    //if (dbConnect.RegistrationUser(accountModel))
-    //{
-        //подтверждение регистрации вводом пароля администратора
+        Log::SaveLog("Попытка регистрации пользователя",accountModel.name, this);    //запись лога
         checkPasswordAdmin = new CheckPasswordAdmin (this, accountModel);
         checkPasswordAdmin->exec();
-        //QMessageBox::information(this, "Результат","Успешная регистрация пользователя "+ email);
-        //Log::SaveLog("Пользователь с логином - ", email, " зарегистрирован", this);    //запись лога
     }
-    //else {
-        //QMessageBox::critical(this, "Результат","Пользователь "+ email + " не зарегистрирован");
-    //}
 }
 
 //очистить введенные регистрационные данные
@@ -159,15 +152,20 @@ void MainWindow::on_pushButton_clear_2_clicked()
 }
 
 
+void MainWindow::on_pushButton_block_clicked()
+{
+    //переход на поле с блокировкой
+    ui->stackedWidget->setCurrentIndex(3);
 
+}
 
+//назад в операции пользователя
+void MainWindow::on_pushButton_back_2_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(1);
+}
 
+void MainWindow::on_pushButton_block_it_clicked()
+{
 
-
-
-
-
-
-
-
-
+}

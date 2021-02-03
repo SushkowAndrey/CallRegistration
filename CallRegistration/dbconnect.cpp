@@ -75,10 +75,10 @@ bool DBConnect::CheckPasswordAdmin (QString password)
 }
 
 //проверка имеется ли данный пользователь в БД
-bool DBConnect::CheckUser(QString name, QString position, QString email, QString departament)
+bool DBConnect::CheckUser(QString email)
 {
     QSqlQuery query;
-    query.exec("SELECT id FROM table_users WHERE name='"+name+"' AND position='"+position+"' AND email='"+email+"' AND departament='"+departament+"' AND active=1");
+    query.exec("SELECT id FROM table_users WHERE email='"+email+"' AND active=1");
     if (query.first())
     {
         return true;
