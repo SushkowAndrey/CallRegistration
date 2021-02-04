@@ -38,7 +38,7 @@ void MainWindow::on_pushButton_close_clicked()
     this->close();
 }
 
-//очистить содржимое
+//очистить содeржимое
 void MainWindow::on_pushButton_clear_clicked()
 {
     ui->input_login->clear();
@@ -156,7 +156,6 @@ void MainWindow::on_pushButton_block_clicked()
 {
     //переход на поле с блокировкой
     ui->stackedWidget->setCurrentIndex(3);
-
 }
 
 //назад в операции пользователя
@@ -167,5 +166,26 @@ void MainWindow::on_pushButton_back_2_clicked()
 
 void MainWindow::on_pushButton_block_it_clicked()
 {
-
+    Log::SaveLog("Блокировка пользователя", this);    //запись лога
+    //заполнение параметров
+    QString email=ui->email_2->text();
+    //проверка введенных данных
+    bool flagData=true;
+    if (email.size()==0)
+    {
+        ui->warning_2->setText("Проверьте заполнение данных");
+        flagData = false;
+    }
+    bool flagUserRepeate=true;
+    DBConnect dbConnect;
+    if (!dbConnect.CheckUser(email))
+    {
+        ui->warning_2->setText("Пользователя с таким Email не существует");
+        flagUserRepeate=false;
+    }
+    if (flagData&&flagUserRepeate) {
+        Log::SaveLog("Попытка блокировки пользователя",email, this);    //запись лога
+        checkPasswordAdmin = new CheckPasswordAdmin (this, email);
+        checkPasswordAdmin->exec();
+    }
 }

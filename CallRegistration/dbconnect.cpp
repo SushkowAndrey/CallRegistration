@@ -24,7 +24,7 @@ AccountModel DBConnect::SelectAccountModel(QString login, QString password)
     db.close();
 }
 
-//заполнение ЛК
+//заполнение ЛК (в разработке)
 AccountModel DBConnect::SelectAccountModel(int id)
 {
     QString name;
@@ -52,6 +52,18 @@ bool DBConnect::RegistrationUser (AccountModel accountModel)
     QSqlQuery query;
     if (query.exec("INSERT INTO table_users (name, position, email, password, type_user, departament) "
                    "VALUES ('"+accountModel.name+"', '"+accountModel.position+"', '"+accountModel.email+"', '"+accountModel.password+"', '"+accountModel.typeUser+"', '"+accountModel.departament+"')"))
+    {
+        return true;
+    } else {
+        return false;
+    }
+    db.close();
+}
+
+bool DBConnect::BlockUser(QString email)
+{
+    QSqlQuery query;
+    if (query.exec("UPDATE table_users SET active = 0 WHERE email='"+email+"' AND type_user='2'"))
     {
         return true;
     } else {

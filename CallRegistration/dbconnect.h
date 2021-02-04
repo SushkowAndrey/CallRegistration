@@ -19,6 +19,8 @@ public:
     AccountModel SelectAccountModel(int id);
     //регистрация пользователя
     bool RegistrationUser (AccountModel accountModel);
+    //блокировка пользователя
+    bool BlockUser (QString email);
     //проверка пароля администратора
     bool CheckPasswordAdmin (QString password);
     //проверка наличия пользователя в базе
