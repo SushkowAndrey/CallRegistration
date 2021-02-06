@@ -21,10 +21,14 @@ public:
     bool RegistrationUser (AccountModel accountModel);
     //блокировка пользователя
     bool BlockUser (QString email);
+    //активация пользователя
+    bool ActiveUser (QString email);
     //проверка пароля администратора
     bool CheckPasswordAdmin (QString password);
     //проверка наличия пользователя в базе
     bool CheckUser (QString email);
+    //проверка активности пользователя
+    bool CheckActive (QString email);
 
 private:
     //путь БД и экземпляр БД

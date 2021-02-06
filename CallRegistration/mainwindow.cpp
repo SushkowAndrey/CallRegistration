@@ -61,6 +61,7 @@ void MainWindow::on_pushButton_back_0_clicked()
 //выход из поля регистрации
 void MainWindow::on_pushButton_back_1_clicked()
 {
+    ui->invalid_data->clear();
     //переход на поле с вариантами работы с пользователем
     ui->stackedWidget->setCurrentIndex(1);
 }
@@ -158,9 +159,10 @@ void MainWindow::on_pushButton_block_clicked()
     ui->stackedWidget->setCurrentIndex(3);
 }
 
-//назад в операции пользователя
+//назад в операции пользователя из блокировки пользователя
 void MainWindow::on_pushButton_back_2_clicked()
 {
+    ui->warning_2->clear();
     ui->stackedWidget->setCurrentIndex(1);
 }
 
@@ -168,24 +170,69 @@ void MainWindow::on_pushButton_block_it_clicked()
 {
     Log::SaveLog("Блокировка пользователя", this);    //запись лога
     //заполнение параметров
-    QString email=ui->email_2->text();
+    QString email=ui->email_block->text();
     //проверка введенных данных
-    bool flagData=true;
     if (email.size()==0)
     {
         ui->warning_2->setText("Проверьте заполнение данных");
-        flagData = false;
-    }
+    } else {
     bool flagUserRepeate=true;
     DBConnect dbConnect;
     if (!dbConnect.CheckUser(email))
     {
-        ui->warning_2->setText("Пользователя с таким Email не существует");
+        ui->warning_2->setText("Пользователя с таким Email не существует или заблокирован");
         flagUserRepeate=false;
     }
-    if (flagData&&flagUserRepeate) {
-        Log::SaveLog("Попытка блокировки пользователя",email, this);    //запись лога
-        checkPasswordAdmin = new CheckPasswordAdmin (this, email);
+    if (flagUserRepeate) {
+        Log::SaveLog("Попытка блокировки пользователя", email, this);    //запись лога
+        checkPasswordAdmin = new CheckPasswordAdmin (this, email, true);
         checkPasswordAdmin->exec();
     }
+    }
+}
+
+void MainWindow::on_pushButton_activate_clicked()
+{
+    //переход на поле с активацией
+    ui->stackedWidget->setCurrentIndex(5);
+}
+
+void MainWindow::on_pushButton_active_it_clicked()
+{
+    Log::SaveLog("Активация пользователя", this);    //запись лога
+    //заполнение параметров
+    QString email=ui->email_activate->text();
+    //проверка введенных данных
+    if (email.size()==0)
+    {
+        ui->warning_3->setText("Проверьте заполнение данных");
+    } else {
+    bool flagUserRepeate=true;
+    DBConnect dbConnect;
+    if (!dbConnect.CheckUser(email))
+    {
+        ui->warning_3->setText("Пользователя с таким Email не существует");
+        flagUserRepeate=false;
+    }
+    //проверка активации пользователя
+    bool flagUserActive=true;
+    //DBConnect dbConnect;
+    if (dbConnect.CheckActive(email))
+    {
+        ui->warning_3->setText("Пользователя с таким Email уже активен");
+        flagUserRepeate=false;
+    }
+    if (flagUserRepeate&&flagUserActive) {
+        Log::SaveLog("Попытка активации пользователя",email, this);    //запись лога
+        checkPasswordAdmin = new CheckPasswordAdmin (this, email, 1);
+        checkPasswordAdmin->exec();
+    }
+    }
+}
+
+//назад в операции пользователя из активности пользователя
+void MainWindow::on_pushButton_back_3_clicked()
+{
+    ui->warning_3->clear();
+    ui->stackedWidget->setCurrentIndex(1);
 }

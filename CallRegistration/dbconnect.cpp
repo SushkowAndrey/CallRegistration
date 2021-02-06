@@ -72,6 +72,18 @@ bool DBConnect::BlockUser(QString email)
     db.close();
 }
 
+bool DBConnect::ActiveUser (QString email)
+{
+    QSqlQuery query;
+    if (query.exec("UPDATE table_users SET active = 1 WHERE email='"+email+"' AND type_user='2'"))
+    {
+        return true;
+    } else {
+        return false;
+    }
+    db.close();
+}
+
 //проверка пароля администратора
 bool DBConnect::CheckPasswordAdmin (QString password)
 {
@@ -90,12 +102,26 @@ bool DBConnect::CheckPasswordAdmin (QString password)
 bool DBConnect::CheckUser(QString email)
 {
     QSqlQuery query;
-    query.exec("SELECT id FROM table_users WHERE email='"+email+"' AND active=1");
+    query.exec("SELECT id FROM table_users WHERE email='"+email+"'");
     if (query.first())
     {
         return true;
     } else {
         return false;
+    }
+    db.close();
+}
+
+//проверка активности
+bool DBConnect::CheckActive(QString email)
+{
+    QString active;
+    QSqlQuery query;
+    query.exec("SELECT active FROM table_users WHERE email='"+email+"'");
+    if (query.first()) {
+        active = query.value(0).toString();
+        if (active=="1") return true;
+        else if (active=="0") return false;
     }
     db.close();
 }

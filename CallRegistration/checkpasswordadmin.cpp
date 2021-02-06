@@ -10,13 +10,23 @@ CheckPasswordAdmin::CheckPasswordAdmin(QWidget *parent, AccountModel accountMode
     connect (ui->pushButton_check, SIGNAL (clicked()), this, SLOT(Registration()));
 }
 
-CheckPasswordAdmin::CheckPasswordAdmin(QWidget *parent, QString email) :
+CheckPasswordAdmin::CheckPasswordAdmin(QWidget *parent, QString email, bool active) :
     QDialog(parent),
     ui(new Ui::CheckPasswordAdmin)
 {
     ui->setupUi(this);
     this->email=email;
     connect (ui->pushButton_check, SIGNAL (clicked()), this, SLOT(Block()));
+}
+
+CheckPasswordAdmin::CheckPasswordAdmin(QWidget *parent, QString email, int isActive) :
+    QDialog(parent),
+    ui(new Ui::CheckPasswordAdmin)
+{
+    ui->setupUi(this);
+    this->email=email;
+    this->isActive=isActive;
+    connect (ui->pushButton_check, SIGNAL (clicked()), this, SLOT(Activate()));
 }
 
 CheckPasswordAdmin::~CheckPasswordAdmin()
@@ -75,6 +85,34 @@ void CheckPasswordAdmin::Block()
     }
     }
 }
+
+void CheckPasswordAdmin::Activate()
+{
+    QString password=ui->enter_password->text();
+    if (password.size()==0) {
+        QMessageBox::critical(this, "Ошибка","Введите пароль администратора");
+    } else {
+    DBConnect dbConnect;
+    if (dbConnect.CheckPasswordAdmin(password)) {
+    if (dbConnect.ActiveUser(email))
+    {
+        QMessageBox::information(this, "Результат","Успешная активация пользователя " + email);
+        Log::SaveLog("Пользователь с email", email, " - активирован", this);    //запись лога
+        this->close();
+    }
+    else {
+        QMessageBox::critical(this, "Результат","Пользователь не заблокирован");
+    }
+    } else {
+        QMessageBox::critical(this, "Результат","Неверный пароль администратора");
+    }
+    }
+}
+
+
+
+
+
 /*
 void CheckPasswordAdmin::on_pushButton_check_clicked()
 {

@@ -50,6 +50,12 @@ private slots:
     void on_pushButton_back_2_clicked();
     //подтвердить блокировку пользователя
     void on_pushButton_block_it_clicked();
+    //активировать пользователя
+    void on_pushButton_activate_clicked();
+    //подтвердить активацию пользователя
+    void on_pushButton_active_it_clicked();
+    //назад в операции пользователя
+    void on_pushButton_back_3_clicked();
 
 private:
     Ui::MainWindow *ui;
