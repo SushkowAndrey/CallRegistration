@@ -29,6 +29,8 @@ public:
     bool CheckUser (QString email);
     //проверка активности пользователя
     bool CheckActive (QString email);
+    //смена пароля пользователя
+    bool ChangePasswordUser (AccountModel accountModel);
 
 private:
     //путь БД и экземпляр БД

@@ -56,6 +56,12 @@ private slots:
     void on_pushButton_active_it_clicked();
     //назад в операции пользователя
     void on_pushButton_back_3_clicked();
+    //смена пароля пользователя
+    void on_pushButton_password_user_clicked();
+    //назад в операции пользователя
+    void on_pushButton_back_4_clicked();
+    //подтверждение смены пароля
+    void on_pushButton_change_password_user_clicked();
 
 private:
     Ui::MainWindow *ui;

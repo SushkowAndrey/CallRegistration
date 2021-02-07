@@ -125,3 +125,16 @@ bool DBConnect::CheckActive(QString email)
     }
     db.close();
 }
+
+//смена пароля пользователя
+bool DBConnect::ChangePasswordUser(AccountModel accountModel)
+{
+    QSqlQuery query;
+    if (query.exec("UPDATE table_users SET password = '"+accountModel.password+"' WHERE email='"+accountModel.email+"'"))
+    {
+        return true;
+    } else {
+        return false;
+    }
+    db.close();
+}

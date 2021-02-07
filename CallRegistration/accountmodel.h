@@ -21,6 +21,8 @@ public:
     AccountModel(int id);
     //конструктор для пользователя
     AccountModel(QString name, QString position, QString email, QString password, QString typeUser, QString departament);
+    //конструктор для пользователя при сменене пароля
+    AccountModel(QString email, QString password);
 };
 
 #endif // ACCOUNTMODEL_H

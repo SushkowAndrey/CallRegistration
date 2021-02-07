@@ -16,3 +16,9 @@ AccountModel::AccountModel(QString name, QString position, QString email, QStrin
     this->typeUser=typeUser;
     this->departament=departament;
 }
+
+AccountModel::AccountModel(QString email, QString password)
+{
+    this->email=email;
+    this->password=password;
+}

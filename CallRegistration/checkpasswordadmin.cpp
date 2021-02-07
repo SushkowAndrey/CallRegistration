@@ -1,7 +1,7 @@
 #include "checkpasswordadmin.h"
 #include "ui_checkpasswordadmin.h"
 
-CheckPasswordAdmin::CheckPasswordAdmin(QWidget *parent, AccountModel accountModel) :
+CheckPasswordAdmin::CheckPasswordAdmin(QWidget *parent, AccountModel accountModel, bool temp) :
     QDialog(parent),
     ui(new Ui::CheckPasswordAdmin)
 {
@@ -10,7 +10,7 @@ CheckPasswordAdmin::CheckPasswordAdmin(QWidget *parent, AccountModel accountMode
     connect (ui->pushButton_check, SIGNAL (clicked()), this, SLOT(Registration()));
 }
 
-CheckPasswordAdmin::CheckPasswordAdmin(QWidget *parent, QString email, bool active) :
+CheckPasswordAdmin::CheckPasswordAdmin(QWidget *parent, QString email, bool temp) :
     QDialog(parent),
     ui(new Ui::CheckPasswordAdmin)
 {
@@ -19,7 +19,7 @@ CheckPasswordAdmin::CheckPasswordAdmin(QWidget *parent, QString email, bool acti
     connect (ui->pushButton_check, SIGNAL (clicked()), this, SLOT(Block()));
 }
 
-CheckPasswordAdmin::CheckPasswordAdmin(QWidget *parent, QString email, int isActive) :
+CheckPasswordAdmin::CheckPasswordAdmin(QWidget *parent, QString email, int temp) :
     QDialog(parent),
     ui(new Ui::CheckPasswordAdmin)
 {
@@ -28,6 +28,16 @@ CheckPasswordAdmin::CheckPasswordAdmin(QWidget *parent, QString email, int isAct
     this->isActive=isActive;
     connect (ui->pushButton_check, SIGNAL (clicked()), this, SLOT(Activate()));
 }
+
+CheckPasswordAdmin::CheckPasswordAdmin(QWidget *parent, AccountModel accountModel, int temp) :
+    QDialog(parent),
+    ui(new Ui::CheckPasswordAdmin)
+{
+    ui->setupUi(this);
+    this->accountModel=accountModel;
+    connect (ui->pushButton_check, SIGNAL (clicked()), this, SLOT(ChangingPassword()));
+}
+
 
 CheckPasswordAdmin::~CheckPasswordAdmin()
 {
@@ -109,31 +119,28 @@ void CheckPasswordAdmin::Activate()
     }
 }
 
-
-
-
-
-/*
-void CheckPasswordAdmin::on_pushButton_check_clicked()
+void CheckPasswordAdmin::ChangingPassword()
 {
+    Log::SaveLog("лог 2", this);    //запись лога
     QString password=ui->enter_password->text();
     if (password.size()==0) {
         QMessageBox::critical(this, "Ошибка","Введите пароль администратора");
     } else {
     DBConnect dbConnect;
     if (dbConnect.CheckPasswordAdmin(password)) {
-    if (dbConnect.RegistrationUser(accountModel))
+    if (dbConnect.ChangePasswordUser(accountModel))
     {
-        QMessageBox::information(this, "Результат","Успешная регистрация пользователя", accountModel.email);
-        Log::SaveLog("Пользователь с email", accountModel.email, "- зарегистрирован", this);    //запись лога
+        QMessageBox::information(this, "Результат","Успешная смена пароля пользователя " + email);
+        Log::SaveLog("Изменен пароля пользователя с email", accountModel.email, this);    //запись лога
         this->close();
     }
     else {
-        QMessageBox::critical(this, "Результат","Пользователь не зарегистрирован");
+        QMessageBox::critical(this, "Результат","Пароль не сменен");
     }
     } else {
         QMessageBox::critical(this, "Результат","Неверный пароль администратора");
     }
     }
+
+
 }
-*/

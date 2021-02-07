@@ -136,7 +136,15 @@ void MainWindow::on_pushButton_registration_clicked()
     AccountModel accountModel(name,position, email, password, typeUser, departament);
     if (flagData&&flagPasswordRepeate&&flagUserRepeate) {
         Log::SaveLog("Попытка регистрации пользователя",accountModel.name, this);    //запись лога
-        checkPasswordAdmin = new CheckPasswordAdmin (this, accountModel);
+        //очистка данных
+        ui->name->clear();
+        ui->position->clear();
+        ui->departament->clear();
+        ui->email->clear();
+        ui->password->clear();
+        ui->repeate_password->clear();
+        //открытие окна ввода пароля администратором
+        checkPasswordAdmin = new CheckPasswordAdmin (this, accountModel, true);
         checkPasswordAdmin->exec();
     }
 }
@@ -185,7 +193,8 @@ void MainWindow::on_pushButton_block_it_clicked()
     }
     if (flagUserRepeate) {
         Log::SaveLog("Попытка блокировки пользователя", email, this);    //запись лога
-        checkPasswordAdmin = new CheckPasswordAdmin (this, email, true);
+        ui->email_block->clear();
+        checkPasswordAdmin = new CheckPasswordAdmin (this, email, "Блокировка");
         checkPasswordAdmin->exec();
     }
     }
@@ -224,6 +233,7 @@ void MainWindow::on_pushButton_active_it_clicked()
     }
     if (flagUserRepeate&&flagUserActive) {
         Log::SaveLog("Попытка активации пользователя",email, this);    //запись лога
+        ui->email_activate->clear();
         checkPasswordAdmin = new CheckPasswordAdmin (this, email, 1);
         checkPasswordAdmin->exec();
     }
@@ -235,4 +245,56 @@ void MainWindow::on_pushButton_back_3_clicked()
 {
     ui->warning_3->clear();
     ui->stackedWidget->setCurrentIndex(1);
+}
+
+//окно смены пароля пользователя
+void MainWindow::on_pushButton_password_user_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(4);
+}
+
+//назад в операции пользователя из смены пароля пользователя
+void MainWindow::on_pushButton_back_4_clicked()
+{
+    ui->warning_4->clear();
+    ui->stackedWidget->setCurrentIndex(1);
+}
+
+void MainWindow::on_pushButton_change_password_user_clicked()
+{
+    Log::SaveLog("Смена пароля пользователя", this);    //запись лога
+    //заполнение параметров
+    QString email=ui->email_change_password->text();
+    QString newPassword=ui->new_password->text();
+    QString repeatNewPassword=ui->repeate_new_password->text();
+    //проверка введенных данных
+    if (email.size()==0&&newPassword.size()==0&&repeatNewPassword.size()==0)
+    {
+        ui->warning_4->setText("Проверьте заполнение данных");
+    } else {
+    bool flagUserRepeate=true;
+    DBConnect dbConnect;
+    if (!dbConnect.CheckUser(email))
+    {
+        ui->warning_4->setText("Пользователя с таким Email не существует");
+        flagUserRepeate=false;
+    }
+    //совпадение пароля
+    bool flagPasswordRepeate=true;
+    if (newPassword!=repeatNewPassword)
+    {
+        ui->warning->setText("Выбранные пароли не совпадают");
+        flagPasswordRepeate=false;
+    }
+    if (flagUserRepeate&&flagPasswordRepeate) {
+        Log::SaveLog("Попытка смены пароля пользователя",email, this);    //запись лога
+        AccountModel accountModel(email, newPassword);
+        ui->email_change_password->clear();
+        ui->new_password->clear();
+        ui->repeate_new_password->clear();
+        checkPasswordAdmin = new CheckPasswordAdmin (this, accountModel, 1);
+        checkPasswordAdmin->exec();
+    }
+    }
+
 }

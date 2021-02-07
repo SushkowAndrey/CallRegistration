@@ -16,9 +16,10 @@ class CheckPasswordAdmin : public QDialog
     Q_OBJECT
 
 public:
-    explicit CheckPasswordAdmin(QWidget *parent = nullptr, AccountModel accountModel=0);//при регистрации пользователя
-    explicit CheckPasswordAdmin(QWidget *parent = nullptr, QString mail=0, bool block=0);//при блокировке пользователя
-    explicit CheckPasswordAdmin(QWidget *parent = nullptr, QString mail=0, int active=0);//при активации пользователя
+    explicit CheckPasswordAdmin(QWidget *parent = nullptr, AccountModel accountModel=0, bool temp=0);//при регистрации пользователя
+    explicit CheckPasswordAdmin(QWidget *parent = nullptr, QString mail=0, bool temp=0);//при блокировке пользователя
+    explicit CheckPasswordAdmin(QWidget *parent = nullptr, QString mail=0, int temp=0);//при активации пользователя
+    explicit CheckPasswordAdmin(QWidget *parent = nullptr, AccountModel accountModel=0, int temp=0);//при смене пароля пользователем пользователя
     ~CheckPasswordAdmin();
 
 private slots:
@@ -28,6 +29,7 @@ private slots:
     void Registration();
     void Block();
     void Activate();
+    void ChangingPassword();
 
 private:
     Ui::CheckPasswordAdmin *ui;
