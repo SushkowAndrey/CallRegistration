@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
+    Log::SaveLog("Закрытие окна входа в личный кабинет", this);    //запись лога
     delete ui;
 }
 
@@ -35,12 +36,14 @@ void MainWindow::TabSwitching() {
 //закрыть окно
 void MainWindow::on_pushButton_close_clicked()
 {
+    Log::SaveLog("Выход из программы", this);    //запись лога
     this->close();
 }
 
 //очистить содeржимое
 void MainWindow::on_pushButton_clear_clicked()
 {
+    Log::SaveLog("Очистка введенного логина и пароля", this);    //запись лога
     ui->input_login->clear();
     ui->input_password->clear();
 }
@@ -49,7 +52,7 @@ void MainWindow::on_pushButton_recover_clicked()
 {
     //переход на другое окно для восстановления активности пользователя
     ui->stackedWidget->setCurrentIndex(1);
-    Log::SaveLog("Работа с пользователем", this);    //запись лога
+    Log::SaveLog("Работа администратора с пользователем", this);    //запись лога
 }
 
 void MainWindow::on_pushButton_back_0_clicked()
@@ -131,6 +134,7 @@ void MainWindow::on_pushButton_registration_clicked()
     if (dbConnect.CheckUser(email))
     {
         ui->warning->setText("Пользователь с таким Email уже зарегистрирован");
+        Log::SaveLog("Пользователь с Email "+email+" уже зарегистрирован", this);    //запись лога
         flagUserRepeate=false;
     }
     AccountModel accountModel(name,position, email, password, typeUser, departament);
@@ -152,6 +156,7 @@ void MainWindow::on_pushButton_registration_clicked()
 //очистить введенные регистрационные данные
 void MainWindow::on_pushButton_clear_2_clicked()
 {
+    Log::SaveLog("Очистка регистрационных данных", this);    //запись лога
     ui->name->clear();
     ui->position->clear();
     ui->departament->clear();
@@ -189,6 +194,7 @@ void MainWindow::on_pushButton_block_it_clicked()
     if (!dbConnect.CheckUser(email))
     {
         ui->warning_2->setText("Пользователя с таким Email не существует или заблокирован");
+        Log::SaveLog("Пользователь с Email "+email+" не существует или заблокирован", this);    //запись лога
         flagUserRepeate=false;
     }
     if (flagUserRepeate) {
@@ -229,6 +235,7 @@ void MainWindow::on_pushButton_active_it_clicked()
     if (dbConnect.CheckActive(email))
     {
         ui->warning_3->setText("Пользователя с таким Email уже активен");
+        Log::SaveLog("Пользователь с Email "+email+" уже активен", this);    //запись лога
         flagUserRepeate=false;
     }
     if (flagUserRepeate&&flagUserActive) {

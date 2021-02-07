@@ -69,6 +69,7 @@ void CheckPasswordAdmin::Registration()
     }
     } else {
         QMessageBox::critical(this, "Результат","Неверный пароль администратора");
+        Log::SaveLog("Попытка проведения операции регистрации пользователя не администратором", this);    //запись лога
     }
     }
 }
@@ -92,6 +93,7 @@ void CheckPasswordAdmin::Block()
     }
     } else {
         QMessageBox::critical(this, "Результат","Неверный пароль администратора");
+        Log::SaveLog("Попытка проведения операции блокирования пользователя не администратором", this);    //запись лога
     }
     }
 }
@@ -115,6 +117,7 @@ void CheckPasswordAdmin::Activate()
     }
     } else {
         QMessageBox::critical(this, "Результат","Неверный пароль администратора");
+        Log::SaveLog("Попытка проведения операции активации пользователя не администратором", this);    //запись лога
     }
     }
 }
@@ -139,6 +142,7 @@ void CheckPasswordAdmin::ChangingPassword()
     }
     } else {
         QMessageBox::critical(this, "Результат","Неверный пароль администратора");
+        Log::SaveLog("Попытка проведения операции смены пароля пользователя не администратором", this);    //запись лога
     }
     }
 
