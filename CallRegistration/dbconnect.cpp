@@ -24,22 +24,26 @@ AccountModel DBConnect::SelectAccountModel(QString login, QString password)
     db.close();
 }
 
-//заполнение ЛК (в разработке)
+//заполнение ЛК
 AccountModel DBConnect::SelectAccountModel(int id)
 {
     QString name;
     QString position;
-    QString departament;
     QString email;
     QString password;
-    QString repeatePassword;
     QString typeUser;
+    QString departament;
     QSqlQuery query;
     query.exec("SELECT name, position, email, password, type_user, departament FROM table_users WHERE id="+QString::number(id)+" AND active=1");
     if (query.next()) {
         name = query.value(0).toString();
-
-        //return accountModel;
+        position = query.value(1).toString();
+        email = query.value(2).toString();
+        password = query.value(3).toString();
+        typeUser = query.value(4).toString();
+        departament = query.value(5).toString();
+        AccountModel accountModel(name, position, email, password, typeUser, departament);
+        return accountModel;
     } else {
         AccountModel accountModel(0);
         return accountModel;

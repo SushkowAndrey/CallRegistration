@@ -2,9 +2,11 @@
 #define ACCOUNT_H
 
 #include <QMainWindow>
+#include <QMessageBox>
 
 #include "accountmodel.h"
 #include "dbconnect.h"
+
 
 namespace Ui {
 class Account;
@@ -29,6 +31,8 @@ private:
     void AccountValue();
     //класс для передачи данных регистрируемого аккаунта для внесения в БД
     AccountModel accountModel;
+    //колонки таблицы обращений
+    void TableColumns();
 };
 
 #endif // ACCOUNT_H

@@ -11,6 +11,7 @@ CONFIG += c++11
 SOURCES += \
     account.cpp \
     accountmodel.cpp \
+    appealcitizensmodel.cpp \
     checkpasswordadmin.cpp \
     dbconnect.cpp \
     log.cpp \
@@ -20,6 +21,7 @@ SOURCES += \
 HEADERS += \
     account.h \
     accountmodel.h \
+    appealcitizensmodel.h \
     checkpasswordadmin.h \
     dbconnect.h \
     log.h \

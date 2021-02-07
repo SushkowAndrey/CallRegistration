@@ -6,39 +6,145 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1207</width>
-    <height>600</height>
+    <width>1693</width>
+    <height>834</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Работа с обращениями на горячей линии</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>50</x>
+      <x>520</x>
       <y>20</y>
-      <width>47</width>
-      <height>13</height>
+      <width>741</width>
+      <height>41</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>28</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
     <property name="text">
-     <string/>
+     <string>Работа с обращениями граждан</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_exit">
+   <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
-      <x>1110</x>
-      <y>10</y>
-      <width>80</width>
-      <height>21</height>
+      <x>10</x>
+      <y>80</y>
+      <width>1671</width>
+      <height>711</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Выход</string>
+    <property name="currentIndex">
+     <number>0</number>
     </property>
+    <widget class="QWidget" name="tab">
+     <attribute name="title">
+      <string>Обращения</string>
+     </attribute>
+     <widget class="QTableWidget" name="table_appeal_citizens">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>60</y>
+        <width>1511</width>
+        <height>631</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_3">
+      <property name="geometry">
+       <rect>
+        <x>1520</x>
+        <y>20</y>
+        <width>141</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Лекарственные препараты</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_2">
+     <attribute name="title">
+      <string>Tab 2</string>
+     </attribute>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>1510</x>
+      <y>0</y>
+      <width>161</width>
+      <height>42</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QPushButton" name="pushButton_exit">
+       <property name="text">
+        <string>Выход из личного кабинета</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="type_user">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>0</y>
+      <width>461</width>
+      <height>72</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Пользователь</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="name">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="position">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="departament">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -46,10 +152,16 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1207</width>
+     <width>1693</width>
      <height>20</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>Файл</string>
+    </property>
+   </widget>
+   <addaction name="menu"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
