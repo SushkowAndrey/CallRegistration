@@ -9,6 +9,7 @@ Account::Account(QWidget *parent, int idAccount) :
     this->idAccount=idAccount;
     AccountValue();
     TableColumns();
+    FillingTable();
 }
 
 Account::~Account()
@@ -32,7 +33,7 @@ void Account::TableColumns()
 {
     //подготовка к заполнению
     //установка количества строк
-    ui->table_appeal_citizens->setRowCount(1);
+    ui->table_appeal_citizens->setRowCount(3);
     //установка количества столбцов
     ui->table_appeal_citizens->setColumnCount(16);
     //названия колонок
@@ -57,6 +58,34 @@ void Account::TableColumns()
     //разрешена сортировка
     ui->table_appeal_citizens->setSortingEnabled(true);
 }
+
+void Account::FillingTable()
+{
+    DBConnect db;
+    QVector <AppealCitizensModel> appealCitizensModel=db.TableAppealCitizens();
+    for (int i=0;i<appealCitizensModel.size();i++)
+    {
+        ui->table_appeal_citizens->setItem(i, 0,new QTableWidgetItem(appealCitizensModel[i].id));
+        ui->table_appeal_citizens->setItem(i, 1,new QTableWidgetItem(appealCitizensModel[i].dateRequest));
+        ui->table_appeal_citizens->setItem(i, 2,new QTableWidgetItem(appealCitizensModel[i].applicant));
+        ui->table_appeal_citizens->setItem(i, 3,new QTableWidgetItem(appealCitizensModel[i].yearBirth));
+        ui->table_appeal_citizens->setItem(i, 4,new QTableWidgetItem(appealCitizensModel[i].contact));
+        ui->table_appeal_citizens->setItem(i, 5,new QTableWidgetItem(appealCitizensModel[i].categoryCitizensId));
+        ui->table_appeal_citizens->setItem(i, 6,new QTableWidgetItem(appealCitizensModel[i].medicalOrganizationId));
+        ui->table_appeal_citizens->setItem(i, 7,new QTableWidgetItem(appealCitizensModel[i].description));
+        ui->table_appeal_citizens->setItem(i, 8,new QTableWidgetItem(appealCitizensModel[i].result));
+        ui->table_appeal_citizens->setItem(i, 9,new QTableWidgetItem(appealCitizensModel[i].transmitted));
+        ui->table_appeal_citizens->setItem(i, 10,new QTableWidgetItem(appealCitizensModel[i].typeRequestId));
+        ui->table_appeal_citizens->setItem(i, 11,new QTableWidgetItem(appealCitizensModel[i].signClosure));
+        ui->table_appeal_citizens->setItem(i, 12,new QTableWidgetItem(appealCitizensModel[i].anonymousAppeal));
+        ui->table_appeal_citizens->setItem(i, 13,new QTableWidgetItem(appealCitizensModel[i].comments));
+        ui->table_appeal_citizens->setItem(i, 15,new QTableWidgetItem(appealCitizensModel[i].closingDate));
+        ui->table_appeal_citizens->setItem(i, 16,new QTableWidgetItem(appealCitizensModel[i].tableUsersId));
+    }
+
+}
+
+
 
 //выход из формы
 void Account::on_pushButton_exit_clicked()

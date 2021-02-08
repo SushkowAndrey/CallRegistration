@@ -126,7 +126,7 @@ bool DBConnect::CheckActive(QString email)
         active = query.value(0).toString();
         if (active=="1") return true;
         else if (active=="0") return false;
-    }
+    } else return false;
     db.close();
 }
 
@@ -141,4 +141,24 @@ bool DBConnect::ChangePasswordUser(AccountModel accountModel)
         return false;
     }
     db.close();
+}
+
+//заполнение таблицы с обращениям
+QVector <AppealCitizensModel> DBConnect::TableAppealCitizens()
+{
+    QVector <AppealCitizensModel> Temp;
+    QSqlQuery query;
+    query.exec("SELECT id,applicant, category_citizens_id, year_birth,contact, "
+               "medical_organization_id, type_request_id, description, date_request, "
+               "transmitted, result,table_users_id, sign_closure, anonymous_appeal, closing_date, comments FROM appeal_citizens");
+    while(query.next())
+    {
+        AppealCitizensModel appealCitizensModel(query.value(0).toString(), query.value(1).toString(), query.value(2).toString(), query.value(3).toString(), query.value(4).toString(),
+                                                query.value(5).toString(), query.value(6).toString(), query.value(7).toString(), query.value(8).toString(),
+                                                query.value(9).toString(), query.value(10).toString(), query.value(11).toString(), query.value(12).toString(),
+                                                query.value(13).toString(), query.value(14).toString(), query.value(15).toString());
+        Temp.push_back(appealCitizensModel);
+    }
+    db.close();
+    return Temp;
 }

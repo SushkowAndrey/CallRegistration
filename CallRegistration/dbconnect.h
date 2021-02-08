@@ -2,12 +2,14 @@
 #define DBCONNECT_H
 
 #include <QString>
+#include <QVector>
 
 #include "QtSql"
 #include "QSqlDatabase"
 #include "QSqlQuery"
 #include "accountmodel.h"
 #include "log.h"
+#include "appealcitizensmodel.h"
 
 class DBConnect
 {
@@ -31,6 +33,8 @@ public:
     bool CheckActive (QString email);
     //смена пароля пользователя
     bool ChangePasswordUser (AccountModel accountModel);
+    //заполнение таблицы с обращениям
+    QVector <AppealCitizensModel> TableAppealCitizens();
 
 private:
     //путь БД и экземпляр БД
