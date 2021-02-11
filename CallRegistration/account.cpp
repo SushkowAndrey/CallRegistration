@@ -31,9 +31,12 @@ void Account::AccountValue()
 
 void Account::TableColumns()
 {
+    //перенос строк в ячейке
+    ui->table_appeal_citizens->setWordWrap(true);//не работает
     //подготовка к заполнению
     //установка количества строк
-    ui->table_appeal_citizens->setRowCount(3);
+    DBConnect db;
+    ui->table_appeal_citizens->setRowCount(db.CountOrganization());
     //установка количества столбцов
     ui->table_appeal_citizens->setColumnCount(16);
     //названия колонок
@@ -70,17 +73,53 @@ void Account::FillingTable()
         ui->table_appeal_citizens->setItem(i, 2,new QTableWidgetItem(appealCitizensModel[i].applicant));
         ui->table_appeal_citizens->setItem(i, 3,new QTableWidgetItem(appealCitizensModel[i].yearBirth));
         ui->table_appeal_citizens->setItem(i, 4,new QTableWidgetItem(appealCitizensModel[i].contact));
-        ui->table_appeal_citizens->setItem(i, 5,new QTableWidgetItem(appealCitizensModel[i].categoryCitizensId));
+        //выплывающий список в меню - не работает
+        //категория граждан
+        QComboBox * categoryCitizens = new QComboBox();
+        //по горизонтали растянем, по вертикали - как решит программа
+        categoryCitizens->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+        QStringList fonts;
+        fonts << "Arial" << "Helvetica" << "Times" << "Courier";
+        categoryCitizens->addItems(fonts);
+        //categoryCitizens->itemText(appealCitizensModel[i].categoryCitizensId.toInt());
+        //ui->table_appeal_citizens->setCellWidget(i, 5, categoryCitizens);
+
+        ui->table_appeal_citizens->setItem(i, 5,new QTableWidgetItem((categoryCitizens->itemText(appealCitizensModel[i].categoryCitizensId.toInt()))));
         ui->table_appeal_citizens->setItem(i, 6,new QTableWidgetItem(appealCitizensModel[i].medicalOrganizationId));
         ui->table_appeal_citizens->setItem(i, 7,new QTableWidgetItem(appealCitizensModel[i].description));
         ui->table_appeal_citizens->setItem(i, 8,new QTableWidgetItem(appealCitizensModel[i].result));
         ui->table_appeal_citizens->setItem(i, 9,new QTableWidgetItem(appealCitizensModel[i].transmitted));
         ui->table_appeal_citizens->setItem(i, 10,new QTableWidgetItem(appealCitizensModel[i].typeRequestId));
         ui->table_appeal_citizens->setItem(i, 11,new QTableWidgetItem(appealCitizensModel[i].signClosure));
+        //чек-бокс
+        //признак закрытия
+        QCheckBox *signClosure=new QCheckBox();
+        ui->table_appeal_citizens->setCellWidget(i, 11, signClosure);
+        //проверка нажатия флажков (одного или нескольких)
+        if (appealCitizensModel[i].signClosure=="1")
+        {
+            signClosure->setCheckState(Qt::Checked);
+        } else if (appealCitizensModel[i].signClosure=="0")
+        {
+            signClosure->setCheckState(Qt::Unchecked);
+        }
         ui->table_appeal_citizens->setItem(i, 12,new QTableWidgetItem(appealCitizensModel[i].anonymousAppeal));
+        //чек-бокс
+        //анонимное или нет
+        QCheckBox *anonymousAppeal=new QCheckBox();
+        ui->table_appeal_citizens->setCellWidget(i, 12, anonymousAppeal);
+        //проверка нажатия флажков (одного или нескольких)
+        if (appealCitizensModel[i].anonymousAppeal=="1")
+        {
+            anonymousAppeal->setCheckState(Qt::Checked);
+        } else if (appealCitizensModel[i].anonymousAppeal=="0")
+        {
+            anonymousAppeal->setCheckState(Qt::Unchecked);
+        }
         ui->table_appeal_citizens->setItem(i, 13,new QTableWidgetItem(appealCitizensModel[i].comments));
         ui->table_appeal_citizens->setItem(i, 15,new QTableWidgetItem(appealCitizensModel[i].closingDate));
         ui->table_appeal_citizens->setItem(i, 16,new QTableWidgetItem(appealCitizensModel[i].tableUsersId));
+
     }
 
 }
@@ -98,3 +137,41 @@ void Account::on_pushButton_exit_clicked()
         //ничего не происходит
     }
 }
+
+/*
+ui->tableWidget->setRowCount(ui->tableWidget->rowCount()+1);
+QComboBox *box = new QComboBox;
+//добавим значения ключей как элементы списка,
+//а сами ключи - как userData
+foreach(QString index, values.keys())
+    box->addItem(values.value(index), index);
+//по горизонтали растянем, по вертикали - как решит программа :)
+box->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+//вставляем в таблицу QTableWidget в колонку №5
+ui->tableWidget->setCellWidget(ui->tableWidget->rowCount() - 1, 5, box);
+
+
+int valuesColNum = 5;
+for(int i = 0; i < ui->tableWidget->rowCount(); ++i) {
+    QComboBox *box;
+    box = qobject_cast<QComboBox*>(
+        ui->tableWidget->cellWidget(i,valuesColNum));
+    qDebug() << i << "строка:";
+    qDebug() << "значение ключа:" << box->currentText() << "ключ:" << box->currentData().toString();
+}
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

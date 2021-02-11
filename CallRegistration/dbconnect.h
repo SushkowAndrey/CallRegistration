@@ -10,6 +10,7 @@
 #include "accountmodel.h"
 #include "log.h"
 #include "appealcitizensmodel.h"
+#include "categorucitizens.h"
 
 class DBConnect
 {
@@ -35,6 +36,10 @@ public:
     bool ChangePasswordUser (AccountModel accountModel);
     //заполнение таблицы с обращениям
     QVector <AppealCitizensModel> TableAppealCitizens();
+    //количество строк в таблице
+    int CountOrganization();
+
+
 
 private:
     //путь БД и экземпляр БД

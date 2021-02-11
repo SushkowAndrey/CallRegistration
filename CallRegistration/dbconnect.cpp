@@ -162,3 +162,13 @@ QVector <AppealCitizensModel> DBConnect::TableAppealCitizens()
     db.close();
     return Temp;
 }
+
+int DBConnect::CountOrganization()
+{
+    //Осуществляем запрос для подсчета количества строк
+    QSqlQuery query;
+    query.exec("SELECT COUNT(*) FROM appeal_citizens");
+    db.close();
+    if (query.next()) return query.value(0).toInt();
+    else return 0;
+}

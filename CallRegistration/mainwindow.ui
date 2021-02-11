@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>4</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="page">
      <layout class="QGridLayout" name="gridLayout_4">
@@ -255,7 +255,7 @@
        <rect>
         <x>460</x>
         <y>30</y>
-        <width>209</width>
+        <width>231</width>
         <height>21</height>
        </rect>
       </property>
@@ -327,18 +327,21 @@
         <x>10</x>
         <y>30</y>
         <width>431</width>
-        <height>185</height>
+        <height>261</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout_7">
        <item row="0" column="0">
         <layout class="QGridLayout" name="gridLayout_6">
-         <item row="0" column="0">
-          <widget class="QLabel" name="label_12">
-           <property name="text">
-            <string>ФИО</string>
+         <item row="5" column="2">
+          <widget class="QLineEdit" name="repeate_password">
+           <property name="echoMode">
+            <enum>QLineEdit::Password</enum>
            </property>
           </widget>
+         </item>
+         <item row="3" column="2">
+          <widget class="QLineEdit" name="email"/>
          </item>
          <item row="1" column="0">
           <widget class="QLabel" name="label_13">
@@ -347,17 +350,10 @@
            </property>
           </widget>
          </item>
-         <item row="2" column="0">
-          <widget class="QLabel" name="label_14">
-           <property name="text">
-            <string>Отдел</string>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="0">
-          <widget class="QLabel" name="label_15">
-           <property name="text">
-            <string>Email</string>
+         <item row="4" column="2">
+          <widget class="QLineEdit" name="password">
+           <property name="echoMode">
+            <enum>QLineEdit::Password</enum>
            </property>
           </widget>
          </item>
@@ -375,25 +371,29 @@
            </property>
           </widget>
          </item>
-         <item row="5" column="2">
-          <widget class="QLineEdit" name="repeate_password">
-           <property name="echoMode">
-            <enum>QLineEdit::Password</enum>
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_14">
+           <property name="text">
+            <string>Отдел</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_12">
+           <property name="text">
+            <string>ФИО</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="label_15">
+           <property name="text">
+            <string>Email</string>
            </property>
           </widget>
          </item>
          <item row="2" column="2">
           <widget class="QLineEdit" name="departament"/>
-         </item>
-         <item row="3" column="2">
-          <widget class="QLineEdit" name="email"/>
-         </item>
-         <item row="4" column="2">
-          <widget class="QLineEdit" name="password">
-           <property name="echoMode">
-            <enum>QLineEdit::Password</enum>
-           </property>
-          </widget>
          </item>
          <item row="1" column="2">
           <widget class="QLineEdit" name="position"/>
@@ -412,12 +412,25 @@
        </item>
       </layout>
      </widget>
+     <widget class="QStackedWidget" name="stackedWidget_2">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>10</y>
+        <width>111</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <widget class="QWidget" name="page_7"/>
+      <widget class="QWidget" name="page_8"/>
+     </widget>
      <zorder>label_18</zorder>
      <zorder>layoutWidget</zorder>
      <zorder>layoutWidget</zorder>
      <zorder>layoutWidget</zorder>
      <zorder>layoutWidget</zorder>
      <zorder>label_8</zorder>
+     <zorder>stackedWidget_2</zorder>
     </widget>
     <widget class="QWidget" name="page_4">
      <widget class="QLabel" name="label_9">
@@ -556,7 +569,7 @@
        <string>Показать пароль</string>
       </property>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>50</x>
