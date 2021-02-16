@@ -148,12 +148,12 @@ QVector <AppealCitizensModel> DBConnect::TableAppealCitizens()
 {
     QVector <AppealCitizensModel> Temp;
     QSqlQuery query;
-    query.exec("SELECT id,applicant, category_citizens_id, year_birth,contact, "
+    query.exec("SELECT id, applicant, category_citizens_id, year_birth, contact, "
                "medical_organization_id, type_request_id, description, date_request, "
                "transmitted, result,table_users_id, sign_closure, anonymous_appeal, closing_date, comments FROM appeal_citizens");
     while(query.next())
     {
-        AppealCitizensModel appealCitizensModel(query.value(0).toString(), query.value(1).toString(), query.value(2).toString(), query.value(3).toString(), query.value(4).toString(),
+        AppealCitizensModel appealCitizensModel(query.value(0).toInt(), query.value(1).toString(), query.value(2).toInt(), query.value(3).toString(), query.value(4).toString(),
                                                 query.value(5).toString(), query.value(6).toString(), query.value(7).toString(), query.value(8).toString(),
                                                 query.value(9).toString(), query.value(10).toString(), query.value(11).toString(), query.value(12).toString(),
                                                 query.value(13).toString(), query.value(14).toString(), query.value(15).toString());
@@ -171,4 +171,21 @@ int DBConnect::CountOrganization()
     db.close();
     if (query.next()) return query.value(0).toInt();
     else return 0;
+}
+//добавить обращение
+bool DBConnect:: AddAppealCitizens(AppealCitizensModel appealCitizensModel)
+{
+        QSqlQuery query;
+        if (query.exec("INSERT INTO appeal_citizens (applicant, category_citizens_id, year_birth, contact, medical_organization_id, type_request_id, "
+                       "description, date_request, transmitted, result, table_users_id, closing_date, comments) "
+                       "VALUES (null, null, null, null, null, "+appealCitizensModel.typeRequestId+", null, "
+                       "'"+appealCitizensModel.dateRequest+"', null, null, "+appealCitizensModel.tableUsersId+", null, null)"))
+        {
+            return true;
+        } else {
+            return false;
+        }
+        db.close();
+
+
 }

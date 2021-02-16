@@ -38,6 +38,8 @@ public:
     QVector <AppealCitizensModel> TableAppealCitizens();
     //количество строк в таблице
     int CountOrganization();
+    //запись в БД
+    bool AddAppealCitizens(AppealCitizensModel appealCitizensModel);
 
 
 

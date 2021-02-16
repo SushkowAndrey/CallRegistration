@@ -5,6 +5,7 @@
 #include <QMessageBox>
 #include <QCheckBox>
 #include <QVector>
+#include <QDateEdit>
 
 #include "accountmodel.h"
 #include "dbconnect.h"
@@ -24,7 +25,12 @@ public:
     ~Account();
 
 private slots:
+    //выходи з аккаунта
     void on_pushButton_exit_clicked();
+    //добавление обращений
+    void on_pushButton_add_appeal_citizens_clicked();
+
+    void on_search_textChanged(const QString &arg1);
 
 private:
     Ui::Account *ui;
@@ -38,6 +44,8 @@ private:
     void TableColumns();
     //заполнение таблицы
     void FillingTable();
+    //вектор для хранения данных из таблицы
+    QVector <AppealCitizensModel> appealCitizensModel;
     //тип обращения
     /*QComboBox *typeRequest = new QComboBox();
     //медицинская организация

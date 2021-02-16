@@ -7,9 +7,9 @@
 class AppealCitizensModel
 {
 public:
-    QString id;
+    int id;
     QString applicant; //ФИО заявителя
-    QString categoryCitizensId;//категория заявителя
+    int categoryCitizensId;//категория заявителя
     QString yearBirth;//год рождения
     QString contact;//адрес и телефон
     QString medicalOrganizationId;//медицинская организация
@@ -25,8 +25,9 @@ public:
     QString comments;//комментарий
 public:
     AppealCitizensModel();
-    AppealCitizensModel(QString id, QString applicant, QString categoryCitizensId, QString yearBirth, QString contact, QString medicalOrganizationId, QString typeRequestId, QString description, QString dateRequest,
+    AppealCitizensModel(int id, QString applicant, int categoryCitizensId, QString yearBirth, QString contact, QString medicalOrganizationId, QString typeRequestId, QString description, QString dateRequest,
                         QString transmitted, QString result, QString tableUsersId, QString signClosure, QString anonymousAppeal, QString closingDate, QString comments);
+    AppealCitizensModel(QString typeRequestId, QString dateRequest,QString tableUsersId);
 };
 
 #endif // APPEALCITIZENSMODEL_H

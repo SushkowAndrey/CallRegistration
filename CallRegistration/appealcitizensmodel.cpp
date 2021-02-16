@@ -2,7 +2,7 @@
 
 AppealCitizensModel::AppealCitizensModel(){}
 
-AppealCitizensModel::AppealCitizensModel(QString id, QString applicant, QString categoryCitizensId, QString yearBirth, QString contact, QString medicalOrganizationId, QString typeRequestId,
+AppealCitizensModel::AppealCitizensModel(int id, QString applicant, int categoryCitizensId, QString yearBirth, QString contact, QString medicalOrganizationId, QString typeRequestId,
                                          QString description, QString dateRequest, QString transmitted, QString result, QString tableUsersId,
                                          QString signClosure, QString anonymousAppeal, QString closingDate, QString comments)
 {
@@ -22,4 +22,11 @@ AppealCitizensModel::AppealCitizensModel(QString id, QString applicant, QString 
     this->anonymousAppeal=anonymousAppeal;
     this->closingDate=closingDate;
     this->comments=comments;
+}
+
+AppealCitizensModel::AppealCitizensModel(QString typeRequestId, QString dateRequest,QString tableUsersId)
+{
+    this->typeRequestId=typeRequestId;
+    this->dateRequest=dateRequest;
+    this->tableUsersId=tableUsersId;
 }

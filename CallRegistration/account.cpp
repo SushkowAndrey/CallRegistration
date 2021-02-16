@@ -31,8 +31,6 @@ void Account::AccountValue()
 
 void Account::TableColumns()
 {
-    //перенос строк в ячейке
-    ui->table_appeal_citizens->setWordWrap(true);//не работает
     //подготовка к заполнению
     //установка количества строк
     DBConnect db;
@@ -58,33 +56,40 @@ void Account::TableColumns()
     ui->table_appeal_citizens->setHorizontalHeaderItem(15, new QTableWidgetItem(tr("Кто принял")));
     //изменить размер по содержимому
     ui->table_appeal_citizens->resizeColumnsToContents();
-    //разрешена сортировка
-    ui->table_appeal_citizens->setSortingEnabled(true);
+    ui->table_appeal_citizens->resizeRowsToContents();
 }
+
 
 void Account::FillingTable()
 {
+    ui->table_appeal_citizens->setSortingEnabled(false);
     DBConnect db;
-    QVector <AppealCitizensModel> appealCitizensModel=db.TableAppealCitizens();
+    appealCitizensModel=db.TableAppealCitizens();
     for (int i=0;i<appealCitizensModel.size();i++)
     {
-        ui->table_appeal_citizens->setItem(i, 0,new QTableWidgetItem(appealCitizensModel[i].id));
-        ui->table_appeal_citizens->setItem(i, 1,new QTableWidgetItem(appealCitizensModel[i].dateRequest));
+        //дополнение id пробелами справа, для корректной сортировки. Всего 6 символов для заполнения данными
+        ui->table_appeal_citizens->setItem(i, 0,new QTableWidgetItem(QString::number(appealCitizensModel[i].id).rightJustified(6, ' ')));
+        QDateEdit *dateRequest =new QDateEdit();
+        //всплывающий календарь
+        dateRequest->setCalendarPopup(true);
+        //дата обращения
+        dateRequest->setDate(QDate::fromString(appealCitizensModel[i].dateRequest, "dd.MM.yyyy"));
+        ui->table_appeal_citizens->setCellWidget(i, 1, dateRequest);
         ui->table_appeal_citizens->setItem(i, 2,new QTableWidgetItem(appealCitizensModel[i].applicant));
         ui->table_appeal_citizens->setItem(i, 3,new QTableWidgetItem(appealCitizensModel[i].yearBirth));
         ui->table_appeal_citizens->setItem(i, 4,new QTableWidgetItem(appealCitizensModel[i].contact));
+        //////////////////////////////////////////
         //выплывающий список в меню - не работает
         //категория граждан
         QComboBox * categoryCitizens = new QComboBox();
-        //по горизонтали растянем, по вертикали - как решит программа
-        categoryCitizens->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
         QStringList fonts;
         fonts << "Arial" << "Helvetica" << "Times" << "Courier";
         categoryCitizens->addItems(fonts);
+        ui->table_appeal_citizens->setCellWidget(i, 5, categoryCitizens);
         //categoryCitizens->itemText(appealCitizensModel[i].categoryCitizensId.toInt());
-        //ui->table_appeal_citizens->setCellWidget(i, 5, categoryCitizens);
-
-        ui->table_appeal_citizens->setItem(i, 5,new QTableWidgetItem((categoryCitizens->itemText(appealCitizensModel[i].categoryCitizensId.toInt()))));
+        //ui->table_appeal_citizens->setItem(i, 5,new QTableWidgetItem((categoryCitizens->itemText(appealCitizensModel[i].categoryCitizensId.toInt()))));
+        ui->table_appeal_citizens->setItem(i, 5,new QTableWidgetItem((categoryCitizens->itemText(appealCitizensModel[i].categoryCitizensId))));
+        /////////////////////////////////////////////
         ui->table_appeal_citizens->setItem(i, 6,new QTableWidgetItem(appealCitizensModel[i].medicalOrganizationId));
         ui->table_appeal_citizens->setItem(i, 7,new QTableWidgetItem(appealCitizensModel[i].description));
         ui->table_appeal_citizens->setItem(i, 8,new QTableWidgetItem(appealCitizensModel[i].result));
@@ -99,6 +104,7 @@ void Account::FillingTable()
         if (appealCitizensModel[i].signClosure=="1")
         {
             signClosure->setCheckState(Qt::Checked);
+            ui->table_appeal_citizens->item(i, 11)->setBackground(Qt::yellow);
         } else if (appealCitizensModel[i].signClosure=="0")
         {
             signClosure->setCheckState(Qt::Unchecked);
@@ -119,9 +125,21 @@ void Account::FillingTable()
         ui->table_appeal_citizens->setItem(i, 13,new QTableWidgetItem(appealCitizensModel[i].comments));
         ui->table_appeal_citizens->setItem(i, 15,new QTableWidgetItem(appealCitizensModel[i].closingDate));
         ui->table_appeal_citizens->setItem(i, 16,new QTableWidgetItem(appealCitizensModel[i].tableUsersId));
-
     }
+    ui->table_appeal_citizens->setSortingEnabled(true);
+}
 
+
+void Account::on_pushButton_add_appeal_citizens_clicked()
+{
+    //
+    ui->table_appeal_citizens->insertRow(ui->table_appeal_citizens->rowCount());
+    QString dateRequest = QDate::currentDate().toString("dd.MM.yyyy");
+    AppealCitizensModel appealCitizensModel(QString::number(1), dateRequest, QString::number(idAccount));
+    DBConnect db;
+    if(db.AddAppealCitizens(appealCitizensModel)) ui->statusbar->showMessage("строка добавлена");
+    else ui->statusbar->showMessage("строка НЕ добавлена");
+    FillingTable();
 }
 
 
@@ -160,6 +178,22 @@ for(int i = 0; i < ui->tableWidget->rowCount(); ++i) {
     qDebug() << "значение ключа:" << box->currentText() << "ключ:" << box->currentData().toString();
 }
 */
+
+
+
+
+void Account::on_search_textChanged(const QString &arg1)
+{
+
+
+
+
+
+}
+
+
+
+
 
 
 
