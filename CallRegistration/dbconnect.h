@@ -40,6 +40,9 @@ public:
     int CountOrganization();
     //запись в БД
     bool AddAppealCitizens(AppealCitizensModel appealCitizensModel);
+    //справочники
+    //справочник категорий граждан
+    QStringList CategoryCitizens();
 
 
 

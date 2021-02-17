@@ -150,16 +150,16 @@ QVector <AppealCitizensModel> DBConnect::TableAppealCitizens()
     QSqlQuery query;
     query.exec("SELECT id, applicant, category_citizens_id, year_birth, contact, "
                "medical_organization_id, type_request_id, description, date_request, "
-               "transmitted, result,table_users_id, sign_closure, anonymous_appeal, closing_date, comments FROM appeal_citizens");
+               "transmitted, result, table_users_id, sign_closure, anonymous_appeal, closing_date, comments FROM appeal_citizens");
     while(query.next())
     {
         AppealCitizensModel appealCitizensModel(query.value(0).toInt(), query.value(1).toString(), query.value(2).toInt(), query.value(3).toString(), query.value(4).toString(),
-                                                query.value(5).toString(), query.value(6).toString(), query.value(7).toString(), query.value(8).toString(),
-                                                query.value(9).toString(), query.value(10).toString(), query.value(11).toString(), query.value(12).toString(),
-                                                query.value(13).toString(), query.value(14).toString(), query.value(15).toString());
+                                                query.value(5).toInt(), query.value(6).toInt(), query.value(7).toString(), query.value(8).toString(),
+                                                query.value(9).toString(), query.value(10).toString(), query.value(11).toInt(), query.value(12).toInt(),
+                                                query.value(13).toInt(), query.value(14).toString(), query.value(15).toString());
         Temp.push_back(appealCitizensModel);
     }
-    db.close();
+    //db.close();
     return Temp;
 }
 
@@ -173,12 +173,12 @@ int DBConnect::CountOrganization()
     else return 0;
 }
 //добавить обращение
-bool DBConnect:: AddAppealCitizens(AppealCitizensModel appealCitizensModel)
+bool DBConnect::AddAppealCitizens(AppealCitizensModel appealCitizensModel)
 {
         QSqlQuery query;
         if (query.exec("INSERT INTO appeal_citizens (applicant, category_citizens_id, year_birth, contact, medical_organization_id, type_request_id, "
                        "description, date_request, transmitted, result, table_users_id, closing_date, comments) "
-                       "VALUES (null, null, null, null, null, "+appealCitizensModel.typeRequestId+", null, "
+                       "VALUES (null, null, null, null, null, "+QString::number(appealCitizensModel.typeRequestId)+", null, "
                        "'"+appealCitizensModel.dateRequest+"', null, null, "+appealCitizensModel.tableUsersId+", null, null)"))
         {
             return true;
@@ -186,6 +186,16 @@ bool DBConnect:: AddAppealCitizens(AppealCitizensModel appealCitizensModel)
             return false;
         }
         db.close();
+}
 
-
+QStringList DBConnect::CategoryCitizens()
+{
+    QStringList Temp;
+    QSqlQuery query;
+    query.exec("SELECT title FROM category_citizens");
+    while(query.next())
+    {
+        Temp.append(query.value(0).toString());
+    }
+    return Temp;
 }

@@ -73,28 +73,31 @@
        <string>Лекарственные препараты</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_add_appeal_citizens">
+     <widget class="QWidget" name="">
       <property name="geometry">
        <rect>
         <x>0</x>
         <y>30</y>
-        <width>141</width>
-        <height>21</height>
+        <width>341</width>
+        <height>23</height>
        </rect>
       </property>
-      <property name="text">
-       <string>Добавить обращение</string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="search">
-      <property name="geometry">
-       <rect>
-        <x>290</x>
-        <y>20</y>
-        <width>241</width>
-        <height>21</height>
-       </rect>
-      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QPushButton" name="pushButton_add_appeal_citizens">
+         <property name="text">
+          <string>Добавить обращение</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_duplicate">
+         <property name="text">
+          <string>Дублировать обращение</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </widget>
     <widget class="QWidget" name="tab_2">

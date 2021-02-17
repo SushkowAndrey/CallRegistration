@@ -6,6 +6,7 @@
 #include <QCheckBox>
 #include <QVector>
 #include <QDateEdit>
+#include <QCompleter>
 
 #include "accountmodel.h"
 #include "dbconnect.h"
@@ -29,8 +30,8 @@ private slots:
     void on_pushButton_exit_clicked();
     //добавление обращений
     void on_pushButton_add_appeal_citizens_clicked();
-
-    void on_search_textChanged(const QString &arg1);
+    //дублирование выделенного обращения
+    void on_pushButton_duplicate_clicked();
 
 private:
     Ui::Account *ui;
