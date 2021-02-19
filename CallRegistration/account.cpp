@@ -7,9 +7,12 @@ Account::Account(QWidget *parent, int idAccount) :
 {
     ui->setupUi(this);
     this->idAccount=idAccount;
+    //изменние цвета в рработе
+    connect (ui->table_appeal_citizens, SIGNAL(cellChanged(int, int)), this, SLOT(ColorRow()));
     AccountValue();
     TableColumns();
     FillingTable();
+    ColorRow();
 }
 
 Account::~Account()
@@ -57,6 +60,8 @@ void Account::TableColumns()
     //изменить размер по содержимому
     ui->table_appeal_citizens->resizeColumnsToContents();
     ui->table_appeal_citizens->resizeRowsToContents();
+    //запрет редактирования первой колонки
+
 }
 
 
@@ -86,7 +91,14 @@ void Account::FillingTable()
         ui->table_appeal_citizens->setCellWidget(i, 5, categoryCitizens);
         categoryCitizens->setCurrentIndex(appealCitizensModel[i].categoryCitizensId);
         categoryCitizens->currentText();
-        ui->table_appeal_citizens->setItem(i, 6,new QTableWidgetItem(QString::number(appealCitizensModel[i].medicalOrganizationId)));
+        //выплывающий список в меню
+        //медицинская организация
+        QComboBox * medicalOrganization = new QComboBox();
+        QStringList valuesmedicalOrganization=db.MedicalOrganization();
+        medicalOrganization->addItems(valuesmedicalOrganization);
+        ui->table_appeal_citizens->setCellWidget(i, 6, medicalOrganization);
+        medicalOrganization->setCurrentIndex(appealCitizensModel[i].medicalOrganizationId);
+        medicalOrganization->currentText();
         ui->table_appeal_citizens->setItem(i, 7,new QTableWidgetItem(appealCitizensModel[i].description));
         ui->table_appeal_citizens->setItem(i, 8,new QTableWidgetItem(appealCitizensModel[i].result));
         ui->table_appeal_citizens->setItem(i, 9,new QTableWidgetItem(appealCitizensModel[i].transmitted));
@@ -100,8 +112,6 @@ void Account::FillingTable()
         if (appealCitizensModel[i].signClosure==1)
         {
             signClosure->setCheckState(Qt::Checked);
-            //цвет скорректировать
-            ui->table_appeal_citizens->item(i, 11)->setBackground(Qt::yellow);
         } else if (appealCitizensModel[i].signClosure==0)
         {
             signClosure->setCheckState(Qt::Unchecked);
@@ -139,7 +149,27 @@ void Account::on_pushButton_add_appeal_citizens_clicked()
     FillingTable();
 }
 
-
+void Account::ColorRow()
+{
+    for (int i=0;i<appealCitizensModel.size();i++)
+    {
+        if (appealCitizensModel[i].signClosure==1)
+        {
+            ui->table_appeal_citizens->item(i, 7)->setBackground(Qt::yellow);
+            ui->table_appeal_citizens->item(i, 8)->setBackground(Qt::yellow);
+            ui->table_appeal_citizens->item(i, 9)->setBackground(Qt::yellow);
+            ui->table_appeal_citizens->item(i, 10)->setBackground(Qt::yellow);
+            ui->table_appeal_citizens->item(i, 11)->setBackground(Qt::yellow);
+        } else if (appealCitizensModel[i].anonymousAppeal==0)
+        {
+            ui->table_appeal_citizens->item(i, 7)->setBackground(Qt::red);
+            ui->table_appeal_citizens->item(i, 8)->setBackground(Qt::red);
+            ui->table_appeal_citizens->item(i, 9)->setBackground(Qt::red);
+            ui->table_appeal_citizens->item(i, 10)->setBackground(Qt::red);
+            ui->table_appeal_citizens->item(i, 11)->setBackground(Qt::red);
+        }
+    }
+}
 
 //выход из формы
 void Account::on_pushButton_exit_clicked()
@@ -153,7 +183,7 @@ void Account::on_pushButton_exit_clicked()
     }
 }
 
-//дублирование выделенного обращения
+//дублирование выделенного обращения в работе
 void Account::on_pushButton_duplicate_clicked()
 {
     ui->table_appeal_citizens->currentRow();
@@ -161,7 +191,12 @@ void Account::on_pushButton_duplicate_clicked()
                                 QString description, QString dateRequest, QString transmitted, QString result, int tableUsersId,
                                 int signClosure, int anonymousAppeal, QString closingDate, QString comments);
 
+}
 
-
-
+//изменение данных таблицы
+void Account::on_table_appeal_citizens_itemChanged(QTableWidgetItem *item)
+{
+    QString data=item->text();
+    DBConnect db;
+    db.EditingApplicant(data, ui->table_appeal_citizens->currentRow(), ui->table_appeal_citizens->currentColumn());
 }

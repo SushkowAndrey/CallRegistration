@@ -43,6 +43,11 @@ public:
     //справочники
     //справочник категорий граждан
     QStringList CategoryCitizens();
+    //справочник медицинских организаций
+    QStringList MedicalOrganization();
+    //редактирование данных
+    //редактирование ФИО заявителя
+    void EditingApplicant(QString data, int row, int column);
 
 
 

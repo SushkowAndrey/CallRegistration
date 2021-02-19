@@ -179,7 +179,7 @@ bool DBConnect::AddAppealCitizens(AppealCitizensModel appealCitizensModel)
         if (query.exec("INSERT INTO appeal_citizens (applicant, category_citizens_id, year_birth, contact, medical_organization_id, type_request_id, "
                        "description, date_request, transmitted, result, table_users_id, closing_date, comments) "
                        "VALUES (null, null, null, null, null, "+QString::number(appealCitizensModel.typeRequestId)+", null, "
-                       "'"+appealCitizensModel.dateRequest+"', null, null, "+appealCitizensModel.tableUsersId+", null, null)"))
+                       "'"+appealCitizensModel.dateRequest+"', null, null, "+QString::number(appealCitizensModel.tableUsersId)+", null, null)"))
         {
             return true;
         } else {
@@ -199,3 +199,67 @@ QStringList DBConnect::CategoryCitizens()
     }
     return Temp;
 }
+
+QStringList DBConnect::MedicalOrganization()
+{
+    QStringList Temp;
+    QSqlQuery query;
+    query.exec("SELECT division FROM medical_organization");
+    while(query.next())
+    {
+        Temp.append(query.value(0).toString());
+    }
+    return Temp;
+}
+
+//редактирование ФИО заявителя
+void DBConnect::EditingApplicant(QString data, int row, int column)
+{
+    switch (column) {
+    case 0:
+
+        break;
+    case 1:
+
+        break;
+    case 2:
+    {
+        QSqlQuery query;
+        query.exec("UPDATE appeal_citizens SET applicant = '"+data+"' WHERE id = "+QString::number(row+1)+"");
+        db.close();
+    }
+        break;
+    case 3:
+    {
+        QSqlQuery query;
+        query.exec("UPDATE appeal_citizens SET year_birth = '"+data+"' WHERE id = "+QString::number(row+1)+"");
+        db.close();
+    }
+        break;
+    case 4:
+    {
+
+    }
+    case 5://не работает при изменении всплывающего меню
+    {
+        QSqlQuery query;
+        query.exec("UPDATE appeal_citizens SET category_citizens_id = "+data+" WHERE id = "+QString::number(row+1)+"");
+        db.close();
+    }
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

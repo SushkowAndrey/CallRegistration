@@ -7,6 +7,7 @@
 #include <QVector>
 #include <QDateEdit>
 #include <QCompleter>
+#include <QTableWidgetItem>
 
 #include "accountmodel.h"
 #include "dbconnect.h"
@@ -32,6 +33,8 @@ private slots:
     void on_pushButton_add_appeal_citizens_clicked();
     //дублирование выделенного обращения
     void on_pushButton_duplicate_clicked();
+    //изменение данных таблицы
+    void on_table_appeal_citizens_itemChanged(QTableWidgetItem *item);
 
 private:
     Ui::Account *ui;
@@ -45,13 +48,12 @@ private:
     void TableColumns();
     //заполнение таблицы
     void FillingTable();
+    //цвет строк
+    void ColorRow();
     //вектор для хранения данных из таблицы
     QVector <AppealCitizensModel> appealCitizensModel;
-    //тип обращения
-    /*QComboBox *typeRequest = new QComboBox();
-    //медицинская организация
-    QComboBox *medicalOrganization = new QComboBox();
-*/
+
+
 };
 
 #endif // ACCOUNT_H
