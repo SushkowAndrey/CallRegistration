@@ -134,7 +134,7 @@ bool DBConnect::CheckActive(QString email)
 bool DBConnect::ChangePasswordUser(AccountModel accountModel)
 {
     QSqlQuery query;
-    if (query.exec("UPDATE table_users SET password = '"+accountModel.password+"' WHERE email='"+accountModel.email+"'"))
+    if (query.exec("UPDATE table_users SET password = '"+accountModel.password+"' WHERE email='"+accountModel.email+"'")) // AND type_user='2'"))
     {
         return true;
     } else {
@@ -212,54 +212,132 @@ QStringList DBConnect::MedicalOrganization()
     return Temp;
 }
 
-//редактирование ФИО заявителя
+QStringList DBConnect::TypeRequestId()
+{
+    QStringList Temp;
+    Temp.append("");
+    QSqlQuery query;
+    query.exec("SELECT reason FROM type_request");
+    while(query.next())
+    {
+        Temp.append(query.value(0).toString());
+    }
+    return Temp;
+}
+
+QStringList DBConnect::TableUsersId()
+{
+    QStringList Temp;
+    Temp.append("");
+    QSqlQuery query;
+    query.exec("SELECT name FROM table_users");
+    while(query.next())
+    {
+        Temp.append(query.value(0).toString());
+    }
+    return Temp;
+}
+
+//редактирование
 void DBConnect::EditingApplicant(QString data, int row, int column)
 {
     switch (column) {
     case 0:
 
         break;
-    case 1:
-
+    case 1://дата
+    {
+        QSqlQuery query;
+        query.exec("UPDATE appeal_citizens SET date_request = '"+data+"' WHERE id = "+QString::number(row+1)+"");
+        db.close();
+    }
         break;
-    case 2:
+    case 2://заявитель ФИО
     {
         QSqlQuery query;
         query.exec("UPDATE appeal_citizens SET applicant = '"+data+"' WHERE id = "+QString::number(row+1)+"");
         db.close();
     }
         break;
-    case 3:
+    case 3://год рождения
     {
         QSqlQuery query;
         query.exec("UPDATE appeal_citizens SET year_birth = '"+data+"' WHERE id = "+QString::number(row+1)+"");
         db.close();
     }
         break;
-    case 4:
+    case 4://Контактные данные
     {
-
+        QSqlQuery query;
+        query.exec("UPDATE appeal_citizens SET contact = '"+data+"' WHERE id = "+QString::number(row+1)+"");
+        db.close();
     }
-    case 5://не работает при изменении всплывающего меню
+        break;
+    case 5://категория, не работает при изменении всплывающего меню
     {
         QSqlQuery query;
         query.exec("UPDATE appeal_citizens SET category_citizens_id = "+data+" WHERE id = "+QString::number(row+1)+"");
         db.close();
     }
+        break;
+    case 6://Медицинская организация
+    {
+
+    }
+        break;
+    case 7://Содержание обращения
+    {
+        QSqlQuery query;
+        query.exec("UPDATE appeal_citizens SET description = "+data+" WHERE id = "+QString::number(row+1)+"");
+        db.close();
+    }
+        break;
+    case 8://Результат
+    {
+        QSqlQuery query;
+        query.exec("UPDATE appeal_citizens SET result = "+data+" WHERE id = "+QString::number(row+1)+"");
+        db.close();
+    }
+        break;
+    case 9://Дата и время передачи
+    {
+        QSqlQuery query;
+        query.exec("UPDATE appeal_citizens SET transmitted = "+data+" WHERE id = "+QString::number(row+1)+"");
+        db.close();
+    }
+        break;
+    case 10://Тип обращения
+    {
+
+    }
+        break;
+    case 11://Признак закрытия
+    {
+
+    }
+        break;
+    case 12://Анонимное
+    {
+
+    }
+        break;
+    case 13://Комментарий
+    {
+        QSqlQuery query;
+        query.exec("UPDATE appeal_citizens SET comments = "+data+" WHERE id = "+QString::number(row+1)+"");
+        db.close();
+    }
+        break;
+    case 14://Дата закрытия
+    {
+
+    }
+        break;
+    case 15://Кто принял
+    {
+
+    }
+        break;
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -8,6 +8,7 @@
 #include <QDateEdit>
 #include <QCompleter>
 #include <QTableWidgetItem>
+#include <QItemDelegate>
 
 #include "accountmodel.h"
 #include "dbconnect.h"
@@ -52,8 +53,8 @@ private:
     void ColorRow();
     //вектор для хранения данных из таблицы
     QVector <AppealCitizensModel> appealCitizensModel;
-
-
+    //изменения в таблице с выплывающим списком
+    int changed(int i);
 };
 
 #endif // ACCOUNT_H

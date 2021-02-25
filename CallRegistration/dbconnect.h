@@ -45,8 +45,11 @@ public:
     QStringList CategoryCitizens();
     //справочник медицинских организаций
     QStringList MedicalOrganization();
+    //типы обращений
+    QStringList TypeRequestId();
+    //перечень пользователей
+    QStringList TableUsersId();
     //редактирование данных
-    //редактирование ФИО заявителя
     void EditingApplicant(QString data, int row, int column);
 
 

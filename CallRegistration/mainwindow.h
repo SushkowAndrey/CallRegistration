@@ -63,6 +63,8 @@ private slots:
     //подтверждение смены пароля
     void on_pushButton_change_password_user_clicked();
 
+    void on_show_password_stateChanged(int arg1);
+
 private:
     Ui::MainWindow *ui;
     //переключение через Tab

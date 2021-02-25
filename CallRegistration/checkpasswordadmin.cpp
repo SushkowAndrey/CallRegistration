@@ -124,7 +124,6 @@ void CheckPasswordAdmin::Activate()
 
 void CheckPasswordAdmin::ChangingPassword()
 {
-    Log::SaveLog("лог 2", this);    //запись лога
     QString password=ui->enter_password->text();
     if (password.size()==0) {
         QMessageBox::critical(this, "Ошибка","Введите пароль администратора");
@@ -145,6 +144,4 @@ void CheckPasswordAdmin::ChangingPassword()
         Log::SaveLog("Попытка проведения операции смены пароля пользователя не администратором", this);    //запись лога
     }
     }
-
-
 }

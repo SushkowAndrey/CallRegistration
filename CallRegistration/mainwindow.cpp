@@ -305,3 +305,16 @@ void MainWindow::on_pushButton_change_password_user_clicked()
     }
 
 }
+
+//показать/скрыть пароль при смене пароля
+void MainWindow::on_show_password_stateChanged(int arg1)
+{
+    if (arg1==2)
+    {
+        ui->new_password->setEchoMode(QLineEdit::Normal);
+        ui->repeate_new_password->setEchoMode(QLineEdit::Normal);
+    } else if (arg1==0) {
+        ui->new_password->setEchoMode(QLineEdit::Password);
+        ui->repeate_new_password->setEchoMode(QLineEdit::Password);
+    }
+}
